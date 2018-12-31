@@ -1,0 +1,19 @@
+/*Student Login Page*/
+#studentLogin input{
+    padding: 5px;
+    margin: 25px 10px 5px 0px;
+}
+
+#studentLogin tr{
+
+
+}
+
+body
+{
+    background: url("../images/bright-squares.png");
+    /*background-size: cover;*/
+    /*background-color: aqua;*/
+    /*background-repeat: repeat;*/
+
+}

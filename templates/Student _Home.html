@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Home</title>
+</head>
+<body>
+
+{% load staticfiles %}
+<table align="center" border="0">
+    <tr>
+        <td>
+            <font size="6" face="TakaoPGothic"> Educational Management System</font>
+        </td>
+
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="{% static 'images/images.png' %}" width="100" height="100">
+        </td>
+    </tr>
+
+</table>
+
+   <table  align="center" border="2">
+
+   <tr>
+        <td width="200" align=" center">
+           <a href="/home1/?type=home1&email={{ email1}}">Home</a>
+       </td>
+
+       <td width="200" align=" center">
+           <a href="/student_update_profile/?type=student_update_profile&email={{ email1}}">UpdateProfile</a>
+       </td>
+
+       <td width="200" align="center">
+           <a href="/student_leave_request_detail/?type=student_leave_request&email={{ email1 }}">
+           leave Request</a>
+       </td>
+       <td width="200" align="center">
+           <a href="/student_transfer_request/?type=student_transfer_request&email={{ email1 }}" >Transfer Request</a>
+       </td>
+        <td width="200" align="center">
+           <a href="/courses/?type=courses&email={{ email1 }}" >Courses</a>
+       </td>
+        <td width="200" align="center">
+           <a href="/galery/?type=gallery" >Gallery</a>
+       </td>
+
+        <td width="200" align="center">
+           <a href="/timetable/?type=timetable" >TimeTable</a>
+       </td>
+
+        <td width="200" align="center">
+           <a href="/feedback/?type=feedback" >Feedback</a>
+       </td>
+
+       <td width="200" align="center">
+           <a href="/index/">
+           Logout</a>
+       </td>
+   </tr>
+   </table>
+<br>
+
+
+<table align="center">
+
+    <tr>
+
+        <td align="center"> Welcome :{{ name }}
+        </td><br>
+
+     </tr>
+
+<tr>
+        <td>{{ message1 }}</td>
+
+    </tr>
+
+
+    <tr>
+        <td>{{ message }}</td>
+    </tr>
+     <tr>
+        <td>{{ message2 }}</td>
+    </tr>
+</table>
+
+{%  if type == "student_update_profile" %}
+<form action="/student_update_details/" method="post">
+    {% csrf_token %}
+
+<table align="center" border="2">
+    {% for x in result %}
+
+    <tr>
+        <td>
+            <input type="text" value="{{ x.first_name }}" readonly name="t1">
+        </td>
+    </tr>
+          <tr>
+        <td>
+            <input type="text" value="{{ x.last_name }}" readonly name="t2">
+        </td>
+    </tr>
+
+          <tr>
+        <td>
+            <input type="text" value="{{ x.father_name }}" readonly name="t3">
+        </td>
+    </tr>
+              <tr>
+        <td>
+            <input type="text" value="{{ x.mother_name }}" readonly name="t4">
+        </td>
+    </tr>
+              <tr>
+        <td>
+            <input type="tel" value="{{ x.contact_no }}"  name="t5">
+        </td>
+    </tr>
+               <tr>
+        <td>
+            <input type="hidden" value="{{ x.email }}"  name="t6">
+        </td>
+    </tr>
+        <tr>
+        <td>
+            <input type="date" value="{{ x.date_of_birth }}" readonly  name="t7">
+        </td>
+    </tr>
+           <tr>
+        <td>
+            <input type="text" value="{{ x.gender }}" readonly  name="t8">
+        </td>
+    </tr>
+           <tr>
+        <td>
+            <input type="text" value="{{ x.material_status }}"  name="t9">
+        </td>
+    </tr>
+           <tr>
+        <td>
+            <input type="text" value="{{ x.username}}" name="t10" >
+        </td>
+    </tr>
+           <tr>
+        <td>
+            <input type="password" value="{{ x.password}}"  name="t11">
+        </td>
+    </tr>
+           <tr>
+        <td>
+            <input type="submit" value="Update" >
+        </td>
+    </tr>
+</table>
+        </form>
+{% endfor %}
+{% endif %}
+<script src="{% static 'js/campuses.js' %}" type="text/javascript"></script>
+
+
+
+
+
+{% if type == "student_transfer_request" %}
+    <script src="{% static 'js/transfer.js' %}" type="text/javascript"></script>
+    <form action="/student_transfer_request_details/" method="post">
+    {% csrf_token %}
+
+<table align="center" border="2">
+
+    <tr>
+        <td>TO City
+            <select name="c1" onselect="true" id="two" onchange="select()" >
+            {% if key == "two" %}
+                <option>{{ city }}</option>
+                {% else %}
+
+                {% for x in city %}
+                <option>{{ x }}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+        </td>
+    </tr>
+<tr>
+    <td>TO Campus
+        <select name="c2">
+            {% for x in campus %}
+                <option>{{ x }}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="text" placeholder="name" name="c3" required>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="text" placeholder="subject" name="c4" required>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <input type="submit" value="Request">
+    </td>
+</tr>
+
+</table>
+     </form>
+{% endif %}
+
+{% if type == "courses" %}
+   <table align="center" border="2">
+   <tr >
+       <th colspan="2">
+           Courses
+       </th>
+   </tr>
+
+   <tr>
+<td>
+       <a href="/current_course/?type=current_course&email={{ email2 }}">Current_Course</a>
+
+       </td>
+       <td>
+           <a href="/new_courses/?type=new_courses">NEW_Courses</a>
+       </td>
+   </tr>
+   </table>
+{% endif %}
+{% if type == "current_course" %}
+<table align="center" border="2">
+<tr>
+    <th colspan="4"><h3> Current Course Details</h3></th>
+</tr>
+    <tr>
+    <th width="200">Course Name</th>
+    <th width="200">Name Of the Candidate</th>
+    <th width="200">ContactNumber </th>
+    <th width="200">Gmail </th>
+    </tr>
+    {% for x in res1 %}
+        <tr>
+        <td  width="200" align="center"> {{ x.course }}</td>
+        <td  width="200" align="center"> {{ x.first_name }}</td><td  width="200" align="center">  {{ x.contact_no}}</td>
+        <td  width="200" align="center">  {{ x.email}} </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+{% endif %}
+{% if type == "gallery" %}
+   <table>
+
+   <tr>
+
+            <td><img src="{% static 'images/gallary/a1.jpg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a2.jpeg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a3.jpg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a4.jpg' %}" width="300" height="200"></td>
+
+   </tr>
+   <tr>
+
+            <td><img src="{% static 'images/gallary/a5.jpg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a6.jpg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a7.jpg' %}" width="300" height="200"></td>
+            <td><img src="{% static 'images/gallary/a8.jpg' %}" width="300" height="200"></td>
+
+   </tr>
+   </table>
+{% endif %}
+{% if type == "home1" %}
+    <table align="center" border="2">
+
+        <th>
+            Your details
+        </th>
+
+
+
+    {% for x in final %}
+        <tr><td>{{ x.first_name }}</td></tr>
+        <tr><td>{{ x.course }}</td></tr>
+        <tr><td>{{ x.contact_no }}</td></tr>
+        <tr><td>{{ x.email }}</td></tr>
+    {% endfor %}
+    </table>
+
+{% endif %}
+
+{% if type == "student_leave_request" %}
+    <table align="center">
+    <tr>
+
+        <td>
+
+            <a href="/history_leave_request/?type=student_history&email={{ roll_number }}">History</a>
+
+        </td>
+
+
+        <td>
+
+            <a href="/Student_leave_request/?type=Student_leave_Request&email={{ EMAIL}}">Send Leave Request</a>
+
+        </td>
+    </tr>
+
+    </table>
+{% endif %}
+{% if type == "Student_leave_Request" %}
+
+    <form action="/student_leave_request_details/" method="post">
+    {% csrf_token %}
+
+<table align="center" border="2">
+
+    </td>
+</tr>
+
+    <tr>
+        <td>
+            <select name="c1" onselect="true" id="one" onchange="check()">
+            {% if key == "one" %}
+                <option>{{ city }}</option>
+                {% else %}
+
+                {% for x in city %}
+                <option>{{ x }}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+        </td>
+    </tr>
+<tr>
+    <td>
+        <select name="c2">
+            {% for x in campus %}
+                <option>{{ x }}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+</tr>
+<tr>
+    <td>
+        <select name="c6">
+            {% for x in r_number %}
+                <option>{{ x }}</option>
+            {% endfor %}
+        </select>
+<tr>
+    <td>
+        <input type="text" placeholder="name" name="c3" required>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <input type="date" min="2018-12-13" max="2019-01-09" placeholder="From Date" name="c4" required>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="date" min="2018-12-13" max="2019-01-09" placeholder="TO Date" name="c5" required>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="submit" value="Request">
+    </td>
+</tr>
+
+</table>
+     </form>
+
+{% endif %}
+
+{% if type == "student_history" %}
+
+
+{% for x in res %}
+    {{ x.r_number }}
+    {{ x.cities }}
+    {{ x.campus }}
+    {{ x.name }}
+    {{ x.from_date }}
+    {{ x.to_date }}
+
+
+    {% endfor %}
+
+{% endif %}
+{% if type == "new_courses" %}
+    <table align="center" border="2">
+    <tr>
+        <th>Course ID</th>
+        <th>Course Name</th>
+    </tr>
+    {% for x in result1 %}
+        <tr>
+        <td align="center">
+            {{ x.class_id}}
+
+        </td>
+        <td align="center">
+            {{ x.class_name }}
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{#{% if fee == "fee_report" %}#}
+{#   <table align="center" border="2">#}
+{#   <tr>#}
+{#       <th>#}
+{#          Payment Details#}
+{#       </th>#}
+{#   </tr>#}
+{#   <tr>#}
+{#       <td>#}
+{#           <a href="/payment/?type=payment&email={{ email }}">online Payment</a></td>#}
+{#   </tr>#}
+{#   <tr>#}
+{#       <td>#}
+{#           <a href="/previousdetails/?type=previous_payment_details&email={{ email }}">Previous payment Details</a>#}
+{#       </td>#}
+{#   </tr>#}
+{#   <tr>#}
+{#       <td>#}
+{#           <a href="/pending/?type=pending_balance&email={{ email }}">Pending Balance</a>#}
+{#       </td>#}
+{#   </tr>#}
+{#   </table>#}
+{#{% endif %}#}
+{#<form action="/payment_details/" method="post">#}
+{#    {% csrf_token %}#}
+{##}
+{#{% if type == "payment" %}#}
+{#    <script src="{% static 'js/payment.js' %}" type="text/javascript"></script>#}
+{##}
+{#    <table align="center" border="2">#}
+{#    <tr>#}
+{#        <th>#}
+{#            {{ message }}{{ amount }}#}
+{#        </th>#}
+{#    </tr>#}
+{#    <tr>#}
+{#        <td><input type="datetime-local" value="{{ date }}" readonly name="p1"></td>#}
+{##}
+{#    </tr>#}
+{#        <tr>#}
+{#            <td>#}
+{#                <input type="text" value="{{ course }}" readonly name="p2">#}
+{#            </td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>#}
+{#                <select name="p3" onselect="true" onchange="payment()" id="one" >#}
+{##}
+{#                        {% if key == "one" %}#}
+{#                            <option>{{ installment }}</option>#}
+{#                        {% else %}#}
+{##}
+{#                             {% for x in installment %}#}
+{#                                <option>{{ x }}</option>#}
+{#                             {% endfor %}#}
+{#                                {% endif %}#}
+{#            </select>#}
+{#            </td>#}
+{#        </tr>#}
+{##}
+{#                    <tr>#}
+{##}
+{#                             <td>#}
+{#                                    <select name="p4">#}
+{#                                         {% for x in installments %}#}
+{#                                                 <option>{{ x }}</option>#}
+{#                                            {% endfor %}#}
+{##}
+{#                    </select>#}
+{#                                    </td>#}
+{#                                                </tr>#}
+{##}
+{##}
+{##}
+{##}
+{#    <tr>#}
+{#        <td>#}
+{#    <tr>#}
+{#        <td>#}
+{#            <input type="text" placeholder="Cardholdername" align="center" required name="p5">#}
+{#        </td>#}
+{#    </tr>#}
+{#     <tr>#}
+{#        <td>#}
+{#            <input type="number" placeholder="Cardnumber" align="center" required name="p6">#}
+{#        </td>#}
+{#    </tr>#}
+{#     <tr>#}
+{#        <td>#}
+{#            <input type="number" placeholder="Cvv" align="center" required name="p7">#}
+{#        </td>#}
+{#    </tr>#}
+{##}
+{#    <tr>#}
+{#        <td>#}
+{#            <input type="submit" value="Pay">#}
+{#        </td>#}
+{#    </tr>#}
+{#    </table>#}
+{#    </form>#}
+{#{% endif %}#}
+{#{% if type == "previous_payment_details" %}#}
+{#    <h1> previous details</h1>#}
+{#{% endif %}#}
+{#{% if type == "pending_balance" %}#}
+{#    <h1>#}
+{#    Pending Balance#}
+{#    </h1>#}
+{#{% endif %}#}
+
+
+
+{% if type == "feedback" %}
+    <form action="/feedbackdetails/" method="post">
+    {% csrf_token %}
+    <link href="{% static 'css/feedback.css' %}" rel="stylesheet">
+
+
+  <table>
+  <tr>
+      <td>
+          <input type="text" placeholder="NAme" name="firstname" required>
+      </td>
+  </tr>
+  <tr>
+      <td>
+          <textarea name="subject">
+
+          </textarea>
+      </td>
+  </tr>
+      <tr>
+          <td>
+              <input type="submit" value="feedback">
+          </td>
+      </tr>
+  </table>
+     </form>
+{% endif %}
+{% if type == "timetable" %}
+    <table align="center" border="2">
+    <tr>
+        <th colspan="5"> Daily Time Table Details</th>
+    </tr>
+    <tr>
+        <th>
+            Course
+        </th>
+        <th>Subject</th>
+        <th>Starting TIme</th>
+        <th>Ending TIme</th>
+        <th>TOtal class TIme Duration</th>
+    </tr>
+    {% for x in res %}
+        <tr>
+        <td>{{ x.Class }}</td>
+        <td>{{ x.subject }}</td>
+        <td>{{ x.class_starting_time }}</td>
+        <td>{{ x.class_ending_time }}</td>
+        <td>{{ x.total_duration}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+</body>
+</html>
